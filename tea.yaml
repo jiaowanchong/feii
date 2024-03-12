@@ -1,0 +1,34 @@
+# https://tea.xyz/what-is-this-file
+---
+version: 1.0.0
+codeOwners:
+  - '0x02c6B2eC272583e6AA9793f66b88fcD55DBbC1eC'
+quorum: 1
+pip install selenium
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+
+# Set up the Chrome WebDriver
+driver = webdriver.Chrome(ChromeDriverManager().install())
+
+# Open a webpage
+driver.get("http://www.python.org")
+
+# Check if the title contains "Python"
+assert "Python" in driver.title
+
+# Find the search box element by its name attribute value
+elem = driver.find_element(By.NAME, "q")
+
+# Clear it, type in "pycon", and hit the enter/return key
+elem.clear()
+elem.send_keys("pycon")
+elem.send_keys(Keys.RETURN)
+
+# Check that no results found is not in the page source
+assert "No results found." not in driver.page_source
+
+# Close the browser window
+driver.quit()
